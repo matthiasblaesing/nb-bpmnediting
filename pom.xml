@@ -136,6 +136,11 @@
             <artifactId>org-netbeans-api-xml-ui</artifactId>
             <version>RELEASE121</version>
         </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-modules-xml-catalog</artifactId>
+            <version>RELEASE121</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
