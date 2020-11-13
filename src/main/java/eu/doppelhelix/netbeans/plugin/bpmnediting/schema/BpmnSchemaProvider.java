@@ -32,7 +32,7 @@ public class BpmnSchemaProvider implements CatalogReader, CatalogDescriptor2 {
 
     @Override
     public String resolveURI(String uri) {
-        switch(uri) {
+        switch (uri) {
             case "http://www.omg.org/spec/BPMN/20100524/MODEL":
                 return BpmnSchemaProvider.class.getResource("BPMN20.xsd").toString();
             case "http://www.omg.org/spec/BPMN/20100524/DI":
@@ -41,6 +41,26 @@ public class BpmnSchemaProvider implements CatalogReader, CatalogDescriptor2 {
                 return BpmnSchemaProvider.class.getResource("DC.xsd").toString();
             case "http://www.omg.org/spec/DD/20100524/DI":
                 return BpmnSchemaProvider.class.getResource("DI.xsd").toString();
+            case "http://bpmn.io/schema/bpmn/biocolor/1.0":
+                return BpmnSchemaProvider.class.getResource("bpmnio-color.xsd").toString();
+            case "http://activiti.org/bpmn/activiti-bpmn-extensions-5.0.xsd":
+                return BpmnSchemaProvider.class.getResource("activiti-bpmn-extensions-5.0.xsd").toString();
+            case "http://activiti.org/bpmn/activiti-bpmn-extensions-5.2.xsd":
+                return BpmnSchemaProvider.class.getResource("activiti-bpmn-extensions-5.2.xsd").toString();
+            case "http://activiti.org/bpmn/activiti-bpmn-extensions-5.3.xsd":
+                return BpmnSchemaProvider.class.getResource("activiti-bpmn-extensions-5.3.xsd").toString();
+            case "http://activiti.org/bpmn/activiti-bpmn-extensions-5.4.xsd":
+                return BpmnSchemaProvider.class.getResource("activiti-bpmn-extensions-5.4.xsd").toString();
+            case "http://activiti.org/bpmn/activiti-bpmn-extensions-5.10.xsd":
+                return BpmnSchemaProvider.class.getResource("activiti-bpmn-extensions-5.10.xsd").toString();
+            case "http://activiti.org/bpmn/activiti-bpmn-extensions-5.11.xsd":
+                return BpmnSchemaProvider.class.getResource("activiti-bpmn-extensions-5.11.xsd").toString();
+            case "http://activiti.org/bpmn/activiti-bpmn-extensions-5.15.xsd":
+                return BpmnSchemaProvider.class.getResource("activiti-bpmn-extensions-5.15.xsd").toString();
+            case "http://activiti.org/bpmn/activiti-bpmn-extensions-5.18.xsd":
+                return BpmnSchemaProvider.class.getResource("activiti-bpmn-extensions-5.18.xsd").toString();
+            case "http://activiti.org/bpmn/activiti-bpmn-extensions-6.0.xsd":
+                return BpmnSchemaProvider.class.getResource("activiti-bpmn-extensions-6.0.xsd").toString();
             default:
                 return null;
         }
