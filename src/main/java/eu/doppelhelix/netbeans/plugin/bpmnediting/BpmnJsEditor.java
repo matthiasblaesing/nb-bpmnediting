@@ -35,7 +35,7 @@ import org.openide.windows.TopComponent;
 @Messages("LBL_BPMNJS_EDITOR=Visual Editor")
 @MultiViewElement.Registration(
     displayName = "#LBL_BPMNJS_EDITOR",
-    //    iconBase = "nl/cloudfarming/client/farm/model/house.png",
+    iconBase = "eu/doppelhelix/netbeans/plugin/bpmnediting/bpmn.png",
     mimeType = "text/bpmn+xml",
     persistenceType = TopComponent.PERSISTENCE_NEVER,
     preferredID = "BpmnJsEditor",

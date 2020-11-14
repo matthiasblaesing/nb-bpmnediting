@@ -40,7 +40,7 @@ import org.xml.sax.InputSource;
 )
 @DataObject.Registration(
     mimeType = "text/bpmn+xml",
-//    iconBase = "SET/PATH/TO/ICON/HERE",
+    iconBase = "eu/doppelhelix/netbeans/plugin/bpmnediting/bpmn.png",
     displayName = "#LBL_BPMN_LOADER",
     position = 300
 )
@@ -117,7 +117,7 @@ public class BpmnDataObject extends MultiDataObject {
 
     @MultiViewElement.Registration(
         displayName = "#LBL_BPMN_SOURCE",
-//        iconBase = "path/to/some-icon.png",
+        iconBase = "eu/doppelhelix/netbeans/plugin/bpmnediting/bpmn.png",
         mimeType = "text/bpmn+xml",
         persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED,
         preferredID = "BpmnDataObjectEditor",
