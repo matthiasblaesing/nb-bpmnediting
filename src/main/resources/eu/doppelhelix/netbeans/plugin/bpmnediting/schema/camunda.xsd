@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://camunda.org/schema/1.0/bpmn"
+    xmlns:tns="http://camunda.org/schema/1.0/bpmn"
+    elementFormDefault="qualified">
+
+    <annotation>
+        <documentation>
+            This XML Schema defines and documents BPMN 2.0 extension elements and
+            attributes introduced by Camunda.
+        </documentation>
+    </annotation>
+  
+    <attribute name="assignee" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#assignee">
+                The attribute specifies a human performer of a User Task. 
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="asyncAfter" type="boolean">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#asyncafter">
+                Specifies an asynchronous continuation after an activity, see Asynchronous Continuations for more information. 
+            </documentation>
+        </annotation>
+    </attribute>
+  
+    <attribute name="asyncBefore" type="boolean">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#asyncbefore">
+                Specifies an asynchronous continuation before an activity, see Asynchronous Continuations for more information. 
+            </documentation>
+        </annotation>
+    </attribute>
+  
+    <attribute name="calledElementBinding" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#calledelementbinding">
+                The attribute specifies which process definition version of the subprocess the call activity calls. If the value is version, the attribute camunda:calledElementVersion is required, see Called Element Binding for more information. 
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="calledElementVersion" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#calledelementversion">
+                The attribute specifies which process definition version of the subprocess the call activity calls if the camunda:calledElementBinding is set to version, see Called Element Binding for more information.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="calledElementTenantId" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#calledelementtenantid">
+                The attribute specifies the tenant id of the process definition which is to be resolved by a call activity, see Called Element Tenant Id for more information.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="candidateGroups" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#candidategroups">
+                The attribute specifies which group(s) will be candidate for performing the User Task.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="candidateStarterGroups" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#candidatestartergroups">
+                The attribute specifies which group(s) will be able to start the process.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="candidateStarterUsers" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#candidatestarterusers">
+                The attribute specifies which user(s) will be able to start the process.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="candidateUsers" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#candidateusers">
+                The attribute specifies which user(s) will be candidate for performing the User Task.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="caseBinding" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#casebinding">
+                The attribute specifies which case definition version of the subcase the call activity calls. If the value is version, the attribute camunda:caseVersion is required, see Case Binding for more information. 
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="caseRef" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#caseref">
+                The attribute references a case definition by its key to call. 
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="caseVersion" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#caseversion">
+                The attribute specifies which case definition version of the subcase the call activity calls if the camunda:caseBinding is set to version, see Case Binding for more information. 
+            </documentation>
+        </annotation>
+    </attribute>
+    
+    <attribute name="caseTenantId" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#casetenantid">
+                The attribute specifies the tenant id of the case definition which is to be resolved by a call activity, see Case Tenant Id for more information.
+            </documentation>
+        </annotation>
+    </attribute>
+
+
+    <attribute name="class" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#class">
+                The attribute specifies which Java class will be executed at runtime. The stated class must implement a Java delegate interface.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="collection" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#collection">
+                The attribute specifies a collection, where an instance will be created for each element, see Multiple Instance for more information.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="decisionRef" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#decisionref">
+                The attribute references a decision definition to evalute by its key.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="decisionRefBinding" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#decisionrefbinding">
+                The attribute specifies which decision definition version the task evaluates. If the value is version, the attribute camunda:decisionRefVersion is required.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="decisionRefVersion" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#decisionrefversion">
+                The attribute specifies which decision definition version the task evaluates if the camunda:decisionRefBinding is set to version.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="decisionRefTenantId" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#decisionreftenantid">
+                The attribute specifies the tenant id of the decision definition which is to be resolved by a business rule task, see DecisionRef Tenant Id for more information.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="delegateExpression" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#delegateexpression">
+                The attribute allows specification of an expression which must resolve to an object that implements the corresponding interface (see delegation code).
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="dueDate" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#duedate">
+                The attribute specifies the initial due date of a User Task when it is created.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="elementVariable" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#elementvariable">
+                The attribute specifies the process variable which will be set on each created instance, containing an element of the specified collection see Multiple Instance for more information.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="errorCodeVariable" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#errorcodevariable">
+                The attribute specifies a process variable that holds the error code and the errorCodevariable will be set if an error has been received by the error start or boundary event, see Error Events for more information.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="errorMessageVariable" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#errormessagevariable">
+                The attribute specifies a process variable that holds the error message and the errorMessageVariable will be set if an error has been received by the error start or boundary event, see Error Events for more information.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="escalationCodeVariable" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#escalationcodevariable">
+                The attribute specifies a process variable which will be set if an escalation has been received by an escalation start or boundary event, see Escalation Events for more information.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="exclusive" type="boolean">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#exclusive">
+                The attribute specifies that jobs should be executed exclusively. See Exclusive Jobs for more information.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="expression" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#expression">
+                The attribute defines an expression which will be evaluated at runtime.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="formHandlerClass" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#formhandlerclass">
+                The attribute specifies the class that will be called during the parsing of the form information of a Start Event or User Task.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="formKey" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#formkey">
+                The attribute specifies a form resource. See task forms for more information.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="historyTimeToLive" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#historytimetolive">
+                The attribute specifies the history time to live (in days) for the process definition. It is used within History cleanup.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="initiator" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#initiator">
+                The attribute specifies a process variable in which the user id of the process initiator is set.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="jobPriority" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#jobpriority">
+                Specifies the priority a job receives that is created in the context of executing the given process element (e.g., a timer event, or in the case of asyncBefore and asyncAfter). See the user guide on Job Prioritization for details.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="mapDecisionResult" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#mapdecisionresult">
+                The attribute references which built-in Decision Result Mapper is used to pass the result of an evaluated decision to a process variable. It should be used in combination with camunda:resultVariable.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="priority" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#priority">
+                The attribute specifies the initial priority of a User Task when it is created.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="taskPriority" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#taskpriority">
+                The attribute specifies the initial priority of an External Task when it is created.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="resource" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#resource">
+                The attribute specifies an external resource. The resource can be part of the deployment or exists in the classpath. To specify the type of resource, a URL scheme like prefix deployment:// resp. classpath:// can be supplied. If the scheme is omitted, it is assumed that the resource exists in the classpath.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="resultVariable" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#resultvariable">
+                The attribute specifies the process variable to save the return value of a camunda:expression.
+
+                Note that when you use camunda:resultVariable in a multi-instance construct, for example in a multi-instance subprocess, the result variable is overwritten every time the task completes, unless the variable is a local variable in the scope of the multi-instance construct. This can lead to seemingly random behavior.
+
+                This is a known issue. As a workaround, a local variable can be declared by adding an execution listener to the subprocess' start event that initializes the variable as null.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="versionTag" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#versiontag">
+                The attribute specifies a version tag for the process definition.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="topic" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#topic">
+                The attribute specifies the topic of an external task instance. The task is going to be offered to workers polling for that topic. It is only relevant when camunda:type is set to external.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="type" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#type">
+                The attribute specifies which built-in task implementation to use. Currently an email, a shell service, and an external task exists.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="variableMappingClass" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#variablemappingclass">
+                The attribute specifies which Java class will be executed at runtime to map the input and output variables for a call activity. The stated class must implement the Delegate Variable Mapping interface. 
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="variableMappingDelegateExpression" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#variablemappingdelegateexpression">
+                The attribute allows specification of an expression which must resolve to an object that implements the corresponding interface Delegate Variable Mapping.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="variableName" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#variablename">
+                The attribute allows to specify a variable name on which a condition of a conditional event should be evaluated exclusively.
+            </documentation>
+        </annotation>
+    </attribute>
+
+    <attribute name="variableEvents" type="string">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-attributes/#variableevents">
+                The attribute allows to specify a comma separated list of variable change events. These events specify the variable change events on which a condition of a conditional event should be evaluated exclusively.
+            </documentation>
+        </annotation>
+    </attribute>
+<!--
+    <complexType name="tScript">
+        <annotation>
+            <documentation>
+                A script element. The script is executed and the return value is used as mapping value. 
+            </documentation>
+        </annotation>
+        <simpleContent>
+            <extension base="string">
+                <attribute name="scriptFormat" type="string" use="required">
+                    <annotation>
+                        <documentation>
+                            The format identifier, normally the language of the script source code
+                        </documentation>
+                    </annotation>
+                </attribute>
+                <attribute name="resource" type="string">
+                    <annotation>
+                        <documentation>
+                            equivalent to camunda:resource
+                        </documentation>
+                    </annotation>
+                </attribute>
+            </extension>
+        </simpleContent>
+    </complexType>-->
+<!--
+    <complexType name="tScript">
+        <annotation>
+            <documentation>
+                A script element. The script is executed and the return value is used as mapping value.
+            </documentation>
+        </annotation>
+        <simpleContent>
+            <extension base="string">
+                <attribute name="scriptFormat" type="string" use="required">
+                    <annotation>
+                        <documentation>
+                            The format identifier, normally the language of the script source code
+                        </documentation>
+                    </annotation>
+                </attribute>
+                <attribute name="resource" type="string">
+                    <annotation>
+                        <documentation>
+                            equivalent to camunda:resource
+                        </documentation>
+                    </annotation>
+                </attribute>
+            </extension>
+        </simpleContent>
+    </complexType>
+
+    <element name="map" ref="tMap" />
+    <complexType name="tMap">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-elements/#map">
+                A map structure. The entries can be constants, expressions, scripts, nested maps and lists.
+            </documentation>
+        </annotation>
+        <sequence>
+            <element name="tEntry" type="tns:tValue" minOccurs="0" />
+        </sequence>
+    </complexType>
+
+    <complexType name="tEntry" mixed="true">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-elements/#entry">
+                A single entry of a map structure. The value can be a constant, expression, script, list or another map.
+            </documentation>
+        </annotation>
+        <sequence>
+            <any minOccurs="0" />
+        </sequence>
+        <attribute name="key" type="string" required="true">
+            <annotation>
+                <documentation>
+                    The key of the entry in the map. Can be a string or an expression.
+                </documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+
+    <complexType name="tList">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-elements/#list">
+                A list structure. If the list contains multiple values, they should be added as text content of child elements. Which child elements are used is arbitrary, e.g.,:
+                &lt;camunda:list>
+                    &lt;camunda:value>one&lt;/camunda:value>
+                    &lt;camunda:value>two&lt;/camunda:value>
+                    &lt;camunda:value>three&lt;/camunda:value>
+                &lt;/camunda:list>
+                A camunda:script element can also be used as a list element. The return value of the script is added to the list. Furthermore, lists can contain nested lists and maps.
+            </documentation>
+        </annotation>
+        <sequence>
+            <element name="value" type="tns:tValue" minOccurs="0" />
+        </sequence>
+    </complexType>
+
+    <complexType name="tValue" mixed="true">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-elements/#value">
+                Possible values of a form field with the type enum.
+            </documentation>
+        </annotation>
+        <sequence>
+            <any minOccurs="0" />
+        </sequence>
+        <attribute name="id" type="string">
+            <annotation>
+                <documentation>
+                    The id of the value
+                </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="name" type="string">
+            <annotation>
+                <documentation>
+                    The name of the value
+                </documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <element name="map" ref="tMap" />
+    <complexType name="tMap">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-elements/#map">
+                A map structure. The entries can be constants, expressions, scripts, nested maps and lists.
+            </documentation>
+        </annotation>
+        <sequence>
+            <element name="tEntry" type="tns:tValue" minOccurs="0" />
+        </sequence>
+    </complexType>
+
+    <complexType name="tEntry" mixed="true">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-elements/#entry">
+                A single entry of a map structure. The value can be a constant, expression, script, list or another map.
+            </documentation>
+        </annotation>
+        <sequence>
+            <any minOccurs="0" />
+        </sequence>
+        <attribute name="key" type="string" required="true">
+            <annotation>
+                <documentation>
+                    The key of the entry in the map. Can be a string or an expression.
+                </documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+
+    <complexType name="tList">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-elements/#list">
+                A list structure. If the list contains multiple values, they should be added as text content of child elements. Which child elements are used is arbitrary, e.g.,:
+                &lt;camunda:list>
+                    &lt;camunda:value>one&lt;/camunda:value>
+                    &lt;camunda:value>two&lt;/camunda:value>
+                    &lt;camunda:value>three&lt;/camunda:value>
+                &lt;/camunda:list>
+                A camunda:script element can also be used as a list element. The return value of the script is added to the list. Furthermore, lists can contain nested lists and maps.
+            </documentation>
+        </annotation>
+        <sequence>
+            <element name="value" type="tns:tValue" minOccurs="0" />
+        </sequence>
+    </complexType>
+
+    <complexType name="tValue" mixed="true">
+        <annotation>
+            <documentation source="https://docs.camunda.org/manual/7.8/reference/bpmn20/custom-extensions/extension-elements/#value">
+                Possible values of a form field with the type enum.
+            </documentation>
+        </annotation>
+        <sequence>
+            <any minOccurs="0" />
+        </sequence>
+        <attribute name="id" type="string">
+            <annotation>
+                <documentation>
+                    The id of the value
+                </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="name" type="string">
+            <annotation>
+                <documentation>
+                    The name of the value
+                </documentation>
+            </annotation>
+        </attribute>
+    </complexType>-->
+
+    <!--  <element name="formProperty">
+      <annotation>
+        <documentation>
+          Subelement of the extensionsElement of activities that support forms.
+          Allows to specifies properties (!= process variables) for a form. See documentation chapter on
+          form properties.
+        </documentation>
+      </annotation>
+      <complexType>
+         TODO: activiti:value 
+        <attribute name="id" use="required" type="string">
+          <annotation>
+            <documentation>
+              The key used to submit the property through the API.
+            </documentation>
+          </annotation>
+        </attribute>
+        <attribute name="name" type="string">
+          <annotation>
+            <documentation>
+              The display label of the property.
+            </documentation>
+          </annotation>
+        </attribute>
+        <attribute name="type" type="string">
+          <annotation>
+            <documentation>
+              The type of the property (see documentation for supported types). 
+              Default is 'string'.
+            </documentation>
+          </annotation>
+        </attribute>
+        <attribute name="readable" type="string">
+          <annotation>
+            <documentation>
+              Specifies if the property can be read and displayed in the form.
+            </documentation>
+          </annotation>
+        </attribute>
+        <attribute name="writable" type="string">
+          <annotation>
+            <documentation>
+              Specifies if the property is expected when the form is submitted.
+            </documentation>
+          </annotation>
+        </attribute>
+        <attribute name="required" type="string">
+          <annotation>
+            <documentation>
+              Specifies if the property is a required field.
+            </documentation>
+          </annotation>
+        </attribute>
+        <attribute name="variable" type="string">
+          <annotation>
+            <documentation>
+              Specifies the process variable on which the variable is mapped.
+            </documentation>
+          </annotation>
+        </attribute>
+        <attribute name="expression" type="string">
+          <annotation>
+            <documentation>
+              Specifies an expression that maps the property, eg. ${street.address}
+            </documentation>
+          </annotation>
+        </attribute>
+      </complexType>
+    </element>-->
+  
+</schema>

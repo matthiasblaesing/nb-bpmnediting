@@ -61,6 +61,8 @@ public class BpmnSchemaProvider implements CatalogReader, CatalogDescriptor2 {
                 return BpmnSchemaProvider.class.getResource("activiti-bpmn-extensions-5.18.xsd").toString();
             case "http://activiti.org/bpmn/activiti-bpmn-extensions-6.0.xsd":
                 return BpmnSchemaProvider.class.getResource("activiti-bpmn-extensions-6.0.xsd").toString();
+            case "http://camunda.org/schema/1.0/bpmn":
+                return BpmnSchemaProvider.class.getResource("camunda.xsd").toString();
             default:
                 return null;
         }
