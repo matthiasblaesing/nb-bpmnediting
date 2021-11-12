@@ -1,4 +1,3 @@
-
 package eu.doppelhelix.netbeans.plugin.bpmnediting;
 
 import javafx.application.Platform;
