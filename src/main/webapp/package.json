@@ -1,29 +1,12 @@
 {
-    "name": "bpmn-js-example-properties-panel",
+    "name": "nb-bpmn-editing-web",
     "version": "0.0.0",
-    "description": "A bpmn-js modeler + properties panel example",
+    "description": "Web application side of the BPMN integration of NetBeans",
     "main": "app/index.js",
     "scripts": {
         "all": "grunt",
         "dev": "grunt auto-build"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/bpmn-io/bpmn-js-examples"
-    },
-    "keywords": [
-        "bpmnjs-example"
-    ],
-    "author": {
-        "name": "Nico Rehwaldt",
-        "url": "https://github.com/nikku"
-    },
-    "contributors": [
-        {
-            "name": "bpmn.io contributors",
-            "url": "https://github.com/bpmn-io"
-        }
-    ],
     "license": "MIT",
     "devDependencies": {
         "esmify": "^2.1.1",
