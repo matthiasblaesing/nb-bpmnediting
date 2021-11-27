@@ -14,7 +14,16 @@
  * limitations under the License.
  */
 
-@TemplateRegistration(folder = "Other", content = "BPMNTemplate.xml")
+@TemplateRegistration(
+        folder = "Other",
+        content = "BPMNTemplate.bpmn",
+        requireProject = false,
+        scriptEngine = "freemarker",
+        displayName = "BPMN",
+        targetName = "process",
+        iconBase = ICON_BASE
+)
 package eu.doppelhelix.netbeans.plugin.bpmnediting;
 
 import org.netbeans.api.templates.TemplateRegistration;
+import static eu.doppelhelix.netbeans.plugin.bpmnediting.BpmnDataObject.ICON_BASE;

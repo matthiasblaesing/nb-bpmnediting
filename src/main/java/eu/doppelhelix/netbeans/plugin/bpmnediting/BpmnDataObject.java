@@ -39,79 +39,84 @@ import org.openide.util.NbBundle.Messages;
 import org.openide.windows.TopComponent;
 import org.xml.sax.InputSource;
 
+import static eu.doppelhelix.netbeans.plugin.bpmnediting.BpmnDataObject.ICON_BASE;
+import static eu.doppelhelix.netbeans.plugin.bpmnediting.BpmnDataObject.MIME_TYPE;
+
 @Messages({
     "LBL_BPMN_LOADER=Files of BPMN",
     "LBL_BPMN_SOURCE=Source"
 })
 @MIMEResolver.NamespaceRegistration(
     displayName = "#LBL_BPMN_LOADER",
-    mimeType = "text/bpmn+xml",
+    mimeType = MIME_TYPE,
     elementNS = {"http://www.omg.org/spec/BPMN/20100524/MODEL"},
     checkedExtension = {"xml", "bpmn"}
 )
 @DataObject.Registration(
     mimeType = "text/bpmn+xml",
-    iconBase = "eu/doppelhelix/netbeans/plugin/bpmnediting/bpmn.png",
+    iconBase = ICON_BASE,
     displayName = "#LBL_BPMN_LOADER",
     position = 300
 )
 @ActionReferences({
     @ActionReference(
-        path = "Loaders/text/bpmn+xml/Actions",
+        path = "Loaders/" + MIME_TYPE + "/Actions",
         id = @ActionID(category = "System", id = "org.openide.actions.OpenAction"),
         position = 100,
         separatorAfter = 200
     ),
     @ActionReference(
-        path = "Loaders/text/bpmn+xml/Actions",
+        path = "Loaders/" + MIME_TYPE + "/Actions",
         id = @ActionID(category = "Edit", id = "org.openide.actions.CutAction"),
         position = 300
     ),
     @ActionReference(
-        path = "Loaders/text/bpmn+xml/Actions",
+        path = "Loaders/" + MIME_TYPE + "/Actions",
         id = @ActionID(category = "Edit", id = "org.openide.actions.CopyAction"),
         position = 400,
         separatorAfter = 500
     ),
     @ActionReference(
-        path = "Loaders/text/bpmn+xml/Actions",
+        path = "Loaders/" + MIME_TYPE + "/Actions",
         id = @ActionID(category = "Edit", id = "org.openide.actions.DeleteAction"),
         position = 600
     ),
     @ActionReference(
-        path = "Loaders/text/bpmn+xml/Actions",
+        path = "Loaders/" + MIME_TYPE + "/Actions",
         id = @ActionID(category = "System", id = "org.openide.actions.RenameAction"),
         position = 700,
         separatorAfter = 800
     ),
     @ActionReference(
-        path = "Loaders/text/bpmn+xml/Actions",
+        path = "Loaders/" + MIME_TYPE + "/Actions",
         id = @ActionID(category = "System", id = "org.openide.actions.SaveAsTemplateAction"),
         position = 900,
         separatorAfter = 1000
     ),
     @ActionReference(
-        path = "Loaders/text/bpmn+xml/Actions",
+        path = "Loaders/" + MIME_TYPE + "/Actions",
         id = @ActionID(category = "System", id = "org.openide.actions.FileSystemAction"),
         position = 1100,
         separatorAfter = 1200
     ),
     @ActionReference(
-        path = "Loaders/text/bpmn+xml/Actions",
+        path = "Loaders/" + MIME_TYPE + "/Actions",
         id = @ActionID(category = "System", id = "org.openide.actions.ToolsAction"),
         position = 1300
     ),
     @ActionReference(
-        path = "Loaders/text/bpmn+xml/Actions",
+        path = "Loaders/" + MIME_TYPE + "/Actions",
         id = @ActionID(category = "System", id = "org.openide.actions.PropertiesAction"),
         position = 1400
     )
 })
 public class BpmnDataObject extends MultiDataObject {
+    public static final String ICON_BASE = "eu/doppelhelix/netbeans/plugin/bpmnediting/bpmn.png";
+    public static final String MIME_TYPE = "text/bpmn+xml";
 
     public BpmnDataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException, IOException {
         super(pf, loader);
-        registerEditor("text/bpmn+xml", true);
+        registerEditor(MIME_TYPE, true);
         CookieSet cookies = getCookieSet();
         InputSource is = DataObjectAdapters.inputSource(this);
         Source source = DataObjectAdapters.source(this);
@@ -128,8 +133,8 @@ public class BpmnDataObject extends MultiDataObject {
 
     @MultiViewElement.Registration(
         displayName = "#LBL_BPMN_SOURCE",
-        iconBase = "eu/doppelhelix/netbeans/plugin/bpmnediting/bpmn.png",
-        mimeType = "text/bpmn+xml",
+        iconBase = ICON_BASE,
+        mimeType = MIME_TYPE,
         persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED,
         preferredID = "BpmnDataObjectEditor",
         position = 100
