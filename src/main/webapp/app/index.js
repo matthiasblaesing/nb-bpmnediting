@@ -25,8 +25,6 @@ window.integration = new function () {
     var bpmnModeler;
 
     this.init = function () {
-        console.log("Init 1");
-
         // modeler instance
         bpmnModeler = new BpmnModeler({
             container: '#canvas',
@@ -45,13 +43,9 @@ window.integration = new function () {
             }
         });
 
-        console.log("Init 2");
-
         bpmnModeler.on('commandStack.changed', function () {
             exportDiagram();
         });
-
-        console.log("Init 3");
 
         openDiagram(null, true);
     };
@@ -103,5 +97,3 @@ if (document.readyState === "complete" || document.readyState === "interactive")
 } else {
     document.addEventListener("DOMContentLoaded", () => integration.init());
 }
-
-setInterval(() => console.log("Timeout"), 10 * 1000);
