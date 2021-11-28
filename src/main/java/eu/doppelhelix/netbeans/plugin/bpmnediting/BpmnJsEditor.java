@@ -101,7 +101,7 @@ public final class BpmnJsEditor extends JPanel implements MultiViewElement {
                     JSObject window = (JSObject) webview.getEngine().executeScript("window");
                     window.setMember("javaIntegration", javaIntegration);
                     webview.getEngine().executeScript("console = {}; console.log = function() {javaIntegration.log(JSON.stringify(arguments))};");
-                    webview.getEngine().executeScript("javaIntegration.importDiagram(false)");
+                    updateDiagramFromDocumentDelayed();
                 }
             });
 

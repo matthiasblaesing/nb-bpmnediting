@@ -47,7 +47,7 @@ window.integration = new function () {
             exportDiagram();
         });
 
-        openDiagram(null, true);
+        // openDiagram(null, true);
     };
 
     /**
