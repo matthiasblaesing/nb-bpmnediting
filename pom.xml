@@ -18,7 +18,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>eu.doppel-helix.netbeans.plugin.bpmnediting</groupId>
     <artifactId>BPMNEditing</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>nbm</packaging>
     <build>
         <resources>
