@@ -34,8 +34,12 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.undo.UndoableEdit;
 import netscape.javascript.JSObject;
 import org.netbeans.api.diff.Difference;
 import org.netbeans.api.editor.document.LineDocumentUtils;
@@ -46,6 +50,7 @@ import org.netbeans.editor.BaseDocument;
 import org.netbeans.spi.diff.DiffProvider;
 import org.openide.awt.UndoRedo;
 import org.openide.cookies.EditorCookie;
+import org.openide.text.CloneableEditorSupport;
 import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
 import org.openide.util.NbBundle.Messages;
@@ -159,28 +164,33 @@ public final class BpmnJsEditor extends JPanel implements MultiViewElement {
                 try {
                     BaseDocument doc = (BaseDocument) ec.openDocument();
                     if (doc != null) {
-                        try {
-                            String targetDoc = doc.getText(0, doc.getLength());
-                            DiffProvider dp = Lookup.getDefault().lookup(DiffProvider.class);
-                            Difference[] differenced = dp.computeDiff(new StringReader(targetDoc), new StringReader(newDoc));
-                            for (Difference d: differenced) {
-                                int linestart = LineDocumentUtils.getLineStartFromIndex(doc, d.getSecondStart() - 1);
-                                int lineendRemove = LineDocumentUtils.getLineStartFromIndex(doc, d.getSecondStart() + d.getFirstEnd() - d.getFirstStart());
-                                switch(d.getType()) {
-                                    case Difference.DELETE:
-                                        doc.replace(linestart, lineendRemove - linestart, "", null);
-                                        break;
-                                    case Difference.ADD:
-                                        doc.insertString(linestart, d.getSecondText(), null);
-                                        break;
-                                    case Difference.CHANGE:
-                                        doc.replace(linestart, lineendRemove - linestart, d.getSecondText(), null);
-                                        break;
+                        doc.runAtomic(() -> {
+                            sendUndoableEdit(doc, CloneableEditorSupport.BEGIN_COMMIT_GROUP);
+                            try {
+                                String targetDoc = doc.getText(0, doc.getLength());
+                                DiffProvider dp = Lookup.getDefault().lookup(DiffProvider.class);
+                                Difference[] differenced = dp.computeDiff(new StringReader(targetDoc), new StringReader(newDoc));
+                                for (Difference d : differenced) {
+                                    int linestart = LineDocumentUtils.getLineStartFromIndex(doc, d.getSecondStart() - 1);
+                                    int lineendRemove = LineDocumentUtils.getLineStartFromIndex(doc, d.getSecondStart() + d.getFirstEnd() - d.getFirstStart());
+                                    switch (d.getType()) {
+                                        case Difference.DELETE:
+                                            doc.replace(linestart, lineendRemove - linestart, "", null);
+                                            break;
+                                        case Difference.ADD:
+                                            doc.insertString(linestart, d.getSecondText(), null);
+                                            break;
+                                        case Difference.CHANGE:
+                                            doc.replace(linestart, lineendRemove - linestart, d.getSecondText(), null);
+                                            break;
+                                    }
                                 }
+                            } catch (BadLocationException | IOException ex) {
+                                Exceptions.printStackTrace(ex);
+                            } finally {
+                                sendUndoableEdit(doc, CloneableEditorSupport.END_COMMIT_GROUP);
                             }
-                        } catch (BadLocationException ex) {
-                            Exceptions.printStackTrace(ex);
-                        }
+                        });
                     }
                 } catch (IOException ex) {
                     Exceptions.printStackTrace(ex);
@@ -188,6 +198,14 @@ public final class BpmnJsEditor extends JPanel implements MultiViewElement {
             }
         } finally {
             BpmnJsEditor.this.initiatedByUs.decrementAndGet();
+        }
+    }
+
+    private void sendUndoableEdit(BaseDocument d, UndoableEdit ue) {
+        UndoableEditListener[] uels = d.getUndoableEditListeners();
+        UndoableEditEvent ev = new UndoableEditEvent(d, ue);
+        for (UndoableEditListener uel : uels) {
+            uel.undoableEditHappened(ev);
         }
     }
 
