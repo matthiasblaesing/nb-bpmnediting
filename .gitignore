@@ -1,7 +1,10 @@
-/private/
-/src/main/webapp/dist/
-/src/main/webapp/nbproject/private/
-/node/
-/src/main/webapp/node_modules/
-/src/main/webapp/node/
-/src/main/webapp/nbproject/
+/BPMNEditing/private/
+/BPMNEditing/src/main/webapp/dist/
+/BPMNEditing/src/main/webapp/nbproject/private/
+/BPMNEditing/node/
+/BPMNEditing/src/main/webapp/node_modules/
+/BPMNEditing/src/main/webapp/node/
+/BPMNEditing/src/main/webapp/nbproject/
+/BPMNEditing/target/
+/target/
+/licensehelper/target/

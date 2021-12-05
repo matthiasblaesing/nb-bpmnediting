@@ -16,8 +16,11 @@
         "grunt-contrib-copy": "^1.0.0",
         "grunt-contrib-less": "^2.0.0",
         "grunt-contrib-watch": "^1.1.0",
+        "license-checker": "^25.0.1",
         "load-grunt-tasks": "^5.0.0",
-        "stringify": "^5.2.0"
+        "printf": "^0.6.1",
+        "stringify": "^5.2.0",
+        "xmlbuilder2": "^3.0.2"
     },
     "dependencies": {
         "bpmn-js": "^8.8.3",

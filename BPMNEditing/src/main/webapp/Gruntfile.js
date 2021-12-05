@@ -3,6 +3,7 @@ var path = require( 'path' );
 module.exports = function ( grunt ) {
 
     require( 'load-grunt-tasks' )( grunt );
+    require( './bundle-licenses.js' )( grunt );
 
     /**
      * Resolve external project resource as file path
@@ -126,7 +127,7 @@ module.exports = function ( grunt ) {
 
     // tasks
 
-    grunt.registerTask( 'build', [ 'copy', 'less', 'browserify:app' ] );
+    grunt.registerTask( 'build', [ 'copy', 'less', 'browserify:app', 'bundle-licenses'] );
 
     grunt.registerTask( 'auto-build', [
         'copy',
