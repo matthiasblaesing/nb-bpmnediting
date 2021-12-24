@@ -49,6 +49,7 @@ function createLicenseBundle() {
                 const artifact = key.substring(groupSplit >= 0 ? (groupSplit + 1) : 0, versionSplit);
                 const version = key.substring(versionSplit + 1);
                 const packageRoot = root.ele("package");
+                packageRoot.ele("scope", "compile");
                 packageRoot.ele("group").txt(escapeAmpersand(group));
                 packageRoot.ele("artifact").txt(escapeAmpersand(artifact));
                 packageRoot.ele("version").txt(escapeAmpersand(version));

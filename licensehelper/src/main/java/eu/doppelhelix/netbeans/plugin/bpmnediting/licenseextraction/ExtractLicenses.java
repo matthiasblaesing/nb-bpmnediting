@@ -83,6 +83,7 @@ public class ExtractLicenses extends AbstractMojo {
                 MavenProject project = mavenProjectBuilder.build(artifact, true, projectBuildingRequest)
                         .getProject();
                 Element elPackage = appendChild(document, elPackages, "package");
+                appendChild(document, elPackage, "scope", artifact.getScope());
                 appendChild(document, elPackage, "group", artifact.getGroupId());
                 appendChild(document, elPackage, "artifact", artifact.getArtifactId());
                 appendChild(document, elPackage, "version", artifact.getVersion());
