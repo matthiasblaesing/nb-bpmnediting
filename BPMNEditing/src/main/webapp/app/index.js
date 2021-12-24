@@ -19,6 +19,186 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import propertiesPanelModule from 'bpmn-js-properties-panel';
 import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json';
+import KeyboardBindings from 'diagram-js/lib/features/keyboard/KeyboardBindings';
+
+import {
+  isCmd,
+  isKey,
+  isShift
+} from 'diagram-js/lib/features/keyboard/KeyboardUtil';
+
+var LOW_PRIORITY = 500;
+
+export var KEYCODE_C = 67;
+export var KEYCODE_V = 86;
+export var KEYCODE_Y = 89;
+export var KEYCODE_Z = 90;
+export var KEYCODE_DEL = 46;
+export var KEYCODE_PLUS = 187;
+export var KEYCODE_MINUS = 189;
+export var KEYCODE_0 = 48;
+
+export var KEYS_COPY = ['c', 'C', KEYCODE_C];
+export var KEYS_PASTE = ['v', 'V', KEYCODE_V];
+export var KEYS_REDO = ['y', 'Y', KEYCODE_Y];
+export var KEYS_UNDO = ['z', 'Z', KEYCODE_Z];
+export var KEYS_ZOOM_IN = ['+', 'Add', '=', KEYCODE_PLUS];
+export var KEYS_ZOOM_OUT = ['-', 'Subtract', KEYCODE_MINUS];
+export var KEYS_ZOOM_0 = ['0', KEYCODE_0];
+export var KEYS_DELETE = ['Backspace', 'Delete', 'Del', KEYCODE_DEL];
+
+/**
+ * Adds default keyboard bindings.
+ *
+ * This does not pull in any features will bind only actions that
+ * have previously been registered against the editorActions component.
+ *
+ * @param {EventBus} eventBus
+ * @param {Keyboard} keyboard
+ */
+function CustomKeyboardBindings(eventBus, keyboard) {
+
+    var self = this;
+
+    eventBus.on('editorActions.init', LOW_PRIORITY, function (event) {
+
+        var editorActions = event.editorActions;
+
+        self.registerBindings(keyboard, editorActions);
+    });
+}
+
+
+/**
+ * Register available keyboard bindings.
+ *
+ * @param {Keyboard} keyboard
+ * @param {EditorActions} editorActions
+ */
+CustomKeyboardBindings.prototype.registerBindings = function (keyboard, editorActions) {
+
+    /**
+     * Add keyboard binding if respective editor action
+     * is registered.
+     *
+     * @param {string} action name
+     * @param {Function} fn that implements the key binding
+     */
+    function addListener(action, fn) {
+
+        if (editorActions.isRegistered(action)) {
+            keyboard.addListener(fn);
+        }
+    }
+
+
+    // undo
+    // (CTRL|CMD) + Z
+    addListener('undo', function (context) {
+
+        var event = context.keyEvent;
+
+        if (isCmd(event) && !isShift(event) && isKey(KEYS_UNDO, event)) {
+            editorActions.trigger('undo');
+
+            return true;
+        }
+    });
+
+    // redo
+    // CTRL + Y
+    // CMD + SHIFT + Z
+    addListener('redo', function (context) {
+
+        var event = context.keyEvent;
+
+        if (isCmd(event) && (isKey(KEYS_REDO, event) || (isKey(KEYS_UNDO, event) && isShift(event)))) {
+            editorActions.trigger('redo');
+
+            return true;
+        }
+    });
+
+    // copy
+    // CTRL/CMD + C
+    addListener('copy', function (context) {
+
+        var event = context.keyEvent;
+
+        if (isCmd(event) && isKey(KEYS_COPY, event)) {
+            editorActions.trigger('copy');
+
+            return true;
+        }
+    });
+
+    // paste
+    // CTRL/CMD + V
+    addListener('paste', function (context) {
+
+        var event = context.keyEvent;
+
+        if (isCmd(event) && isKey(KEYS_PASTE, event)) {
+            editorActions.trigger('paste');
+
+            return true;
+        }
+    });
+
+    // zoom in one step
+    // CTRL/CMD + +
+    addListener('stepZoom', function (context) {
+
+        var event = context.keyEvent;
+
+        // quirk: it has to be triggered by `=` as well to work on international keyboard layout
+        // cf: https://github.com/bpmn-io/bpmn-js/issues/1362#issuecomment-722989754
+        if (isKey(KEYS_ZOOM_IN, event) && isCmd(event)) {
+            editorActions.trigger('stepZoom', {value: 1});
+
+            return true;
+        }
+    });
+
+    // zoom out one step
+    // CTRL + -
+    addListener('stepZoom', function (context) {
+
+        var event = context.keyEvent;
+
+        if (isKey(KEYS_ZOOM_OUT, event) && isCmd(event)) {
+            editorActions.trigger('stepZoom', {value: -1});
+
+            return true;
+        }
+    });
+
+    // zoom to the default level
+    // CTRL + 0
+    addListener('zoom', function (context) {
+
+        var event = context.keyEvent;
+
+        if (isKey(KEYS_ZOOM_0, event) && isCmd(event)) {
+            editorActions.trigger('zoom', {value: 1});
+
+            return true;
+        }
+    });
+
+    // delete selected element
+    // DEL
+    addListener('removeSelection', function (context) {
+
+        var event = context.keyEvent;
+
+        if (isKey(KEYS_DELETE, event)) {
+            editorActions.trigger('removeSelection');
+
+            return true;
+        }
+    });
+};
 
 /* global javaIntegration */
 window.integration = new function () {
@@ -28,12 +208,14 @@ window.integration = new function () {
         // modeler instance
         bpmnModeler = new BpmnModeler({
             container: '#canvas',
-            additionalModules: [
+            additionalModules: {
+                __init__: ["customKeyboardBinding"],
+                customKeyboardBinding: ["type", CustomKeyboardBindings],
                 propertiesPanelModule,
                 propertiesProviderModule
-            ],
+            },
             keyboard: {
-                bindTo: window
+                bindTo: document
             },
             propertiesPanel: {
                 parent: '#properties'
@@ -97,3 +279,4 @@ if (document.readyState === "complete" || document.readyState === "interactive")
 } else {
     document.addEventListener("DOMContentLoaded", () => integration.init());
 }
+
