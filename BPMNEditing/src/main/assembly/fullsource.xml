@@ -1,0 +1,22 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0 http://maven.apache.org/xsd/assembly-2.1.0.xsd">
+    <id>fullsource</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>${basedir}/..</directory>
+            <useDefaultExcludes>true</useDefaultExcludes>
+            <excludes>
+                <exclude>BPMNEditing/src/main/webapp/node_modules/**</exclude>
+                <exclude>BPMNEditing/src/main/webapp/node/**</exclude>
+                <exclude>BPMNEditing/node/**</exclude>
+                <exclude>BPMNEditing/target/**</exclude>
+                <exclude>BPMNEditing/private/**</exclude>
+                <exclude>licensehelper/target/**</exclude>
+            </excludes>
+        </fileSet>
+    </fileSets>
+</assembly>
