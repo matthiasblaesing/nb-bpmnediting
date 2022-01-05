@@ -219,72 +219,72 @@ the camunda engine.
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-api-annotations-common</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-api-templates</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-filesystems</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-loaders</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-nodes</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util-lookup</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util-ui</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-windows</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-text</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-awt</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-dialogs</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-core-multiview</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-libs-javafx</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -307,32 +307,32 @@ the camunda engine.
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-api-xml</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-api-xml-ui</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-modules-xml-catalog</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-modules-diff</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-modules-editor-document</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-modules-editor-lib</artifactId>
-            <version>RELEASE121</version>
+            <version>RELEASE126</version>
         </dependency>
     </dependencies>
     <properties>
