@@ -63,6 +63,9 @@ the camunda engine.
                 <directory>src/main/resources</directory>
             </resource>
             <resource>
+                <directory>target/generated-sources/license</directory>
+            </resource>
+            <resource>
                 <directory>src/main/webapp/dist</directory>
                 <targetPath>eu/doppelhelix/netbeans/plugin/bpmnediting/webapp</targetPath>
             </resource>
@@ -75,7 +78,7 @@ the camunda engine.
                 <extensions>true</extensions>
                 <configuration>
                     <useOSGiDependencies>true</useOSGiDependencies>
-                    <licenseFile>target/license.txt</licenseFile>
+                    <licenseFile>target/generated-sources/license/license/META-INF/LICENSE</licenseFile>
                     <licenseName>${project.artifactId}-${project.version}</licenseName>
                 </configuration>
             </plugin>
@@ -172,11 +175,12 @@ the camunda engine.
                             <goal>summarize-licenses</goal>
                         </goals>
                         <configuration>
+                            <prefix>src/main/packaging/LICENSE</prefix>
                             <inputfiles>
                                 <inputfile>target/licenses.xml</inputfile>
                                 <inputfile>src/main/webapp/dist/licenses.xml</inputfile>
                             </inputfiles>
-                            <outputfile>target/license.txt</outputfile>
+                            <outputfile>target/generated-sources/license/META-INF/LICENSE</outputfile>
                         </configuration>
                     </execution>
                 </executions>
@@ -192,7 +196,7 @@ the camunda engine.
                         </goals>
                         <configuration>
                             <descriptors>
-                                <descriptor>src/main/assembly/fullsource.xml</descriptor>
+                                <descriptor>src/main/packaging/fullsource.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>

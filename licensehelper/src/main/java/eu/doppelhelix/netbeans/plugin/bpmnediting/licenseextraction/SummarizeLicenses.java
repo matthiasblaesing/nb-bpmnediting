@@ -16,9 +16,12 @@
 
 package eu.doppelhelix.netbeans.plugin.bpmnediting.licenseextraction;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -58,11 +61,21 @@ public class SummarizeLicenses extends AbstractMojo {
     @Parameter(name = "outputfile")
     private File outputfile;
 
+    @Parameter(name = "prefix")
+    private File prefix;
+
+    @Parameter(name = "suffix")
+    private File suffix;
+
     @Override
     public void execute()
             throws MojoExecutionException {
+        outputfile.getParentFile().mkdirs();
         try (FileOutputStream fos = new FileOutputStream(outputfile);
                 PrintWriter pw = new PrintWriter(fos, true, StandardCharsets.UTF_8)) {
+
+            transferFileText(prefix, pw);
+
             DocumentBuilder db = DocumentBuilderFactory.newDefaultInstance().newDocumentBuilder();
             TreeMap<String,PackageData> unifiedMap = new TreeMap<>();
             for(File inputfile: inputfiles) {
@@ -79,7 +92,7 @@ public class SummarizeLicenses extends AbstractMojo {
             Map<String,List<PackageData>> licenseTexts = new LinkedHashMap<>();
             Map<String,List<PackageData>> noticeTexts = new LinkedHashMap<>();
 
-            pw.println("==================== Summary ====================\n");
+            pw.println("==========================   Summary of dependencies  ==========================\n");
 
             for(Entry<String,PackageData> e: unifiedMap.entrySet()) {
                 PackageData pd = e.getValue();
@@ -150,8 +163,22 @@ public class SummarizeLicenses extends AbstractMojo {
                 pw.println("+------------------------------------------------------------------------------+");
                 pw.println(e.getKey().trim());
             }
+
+            transferFileText(suffix, pw);
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             throw new MojoExecutionException("", ex);
+        }
+    }
+
+    private void transferFileText(File file, final PrintWriter pw) throws IOException {
+        if(file != null) {
+            try(FileInputStream fis = new FileInputStream(file);
+                    InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
+                    BufferedReader br = new BufferedReader(isr)) {
+                for(String line = br.readLine(); line != null; line = br.readLine()) {
+                    pw.println(line);
+                }
+            }
         }
     }
 
