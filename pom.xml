@@ -40,4 +40,11 @@
             </plugin>
         </plugins>
     </build>
+
+    <scm>
+        <connection>scm:git:https://github.com/matthiasblaesing/nb-bpmnediting.git</connection>
+        <developerConnection>scm:git:git@github.com:matthiasblaesing/nb-bpmnediting.git</developerConnection>
+        <url>https://github.com/matthiasblaesing/nb-bpmnediting</url>
+        <tag>HEAD</tag>
+    </scm>
 </project>
