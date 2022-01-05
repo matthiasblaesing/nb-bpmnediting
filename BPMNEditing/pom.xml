@@ -18,7 +18,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>eu.doppel-helix.netbeans.plugin.bpmnediting</groupId>
     <artifactId>BPMNEditing</artifactId>
-    <version>0.3</version>
+    <version>0.4-SNAPSHOT</version>
     <packaging>nbm</packaging>
     <description>Integration of BPMN editing into NetBeans.
 
@@ -54,7 +54,7 @@ the camunda engine.
         <connection>scm:git:https://github.com/matthiasblaesing/nb-bpmnediting.git</connection>
         <developerConnection>scm:git:git@github.com:matthiasblaesing/nb-bpmnediting.git</developerConnection>
         <url>https://github.com/matthiasblaesing/nb-bpmnediting</url>
-        <tag>0.3</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <build>
@@ -154,7 +154,7 @@ the camunda engine.
             <plugin>
                 <groupId>eu.doppel-helix.netbeans.plugin.bpmnediting</groupId>
                 <artifactId>licensehelper</artifactId>
-                <version>0.3</version>
+                <version>0.4-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <id>extract</id>

@@ -19,7 +19,7 @@
 
     <groupId>eu.doppel-helix.netbeans.plugin.bpmnediting</groupId>
     <artifactId>licensehelper</artifactId>
-    <version>0.3</version>
+    <version>0.4-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <name>BPMNEditing license-helper</name>
