@@ -26,6 +26,37 @@ This module provides XML editing support for BPMN documents and integrates
 graphical editing using the bpmn.js tooling with special support for
 the camunda engine.
     </description>
+
+    <name>BPMNEditing</name>
+
+    <url>https://github.com/matthiasblaesing/nb-bpmnediting</url>
+
+    <licenses>
+        <license>
+            <name>Apache-2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Matthias Bläsing</name>
+            <id>mb</id>
+            <email>mblaesing@doppel-helix.eu</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/matthiasblaesing/nb-bpmnediting.git</connection>
+        <developerConnection>scm:git:git@github.com:matthiasblaesing/nb-bpmnediting.git</developerConnection>
+        <url>https://github.com/matthiasblaesing/nb-bpmnediting</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <build>
         <resources>
             <resource>
