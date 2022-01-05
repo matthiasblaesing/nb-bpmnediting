@@ -19,7 +19,7 @@
 
     <groupId>eu.doppel-helix.netbeans.plugin.bpmnediting</groupId>
     <artifactId>parent</artifactId>
-    <version>0.5-SNAPSHOT</version>
+    <version>0.5</version>
     <packaging>pom</packaging>
     <name>BPMNEditing parent</name>
 
@@ -53,6 +53,6 @@
         <connection>scm:git:https://github.com/matthiasblaesing/nb-bpmnediting.git</connection>
         <developerConnection>scm:git:git@github.com:matthiasblaesing/nb-bpmnediting.git</developerConnection>
         <url>https://github.com/matthiasblaesing/nb-bpmnediting</url>
-        <tag>HEAD</tag>
+        <tag>0.5</tag>
     </scm>
 </project>
