@@ -221,7 +221,7 @@ public final class BpmnJsEditor extends JPanel implements MultiViewElement {
 
     @Override
     public Action[] getActions() {
-        return new Action[]{};
+        return multiviewCallback.createDefaultActions();
     }
 
     @Override
