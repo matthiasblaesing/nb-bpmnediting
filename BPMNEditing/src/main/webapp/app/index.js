@@ -14,10 +14,22 @@
  limitations under the License.
 */
 
+import 'bpmn-js/dist/assets/diagram-js.css';
+import 'bpmn-js/dist/assets/bpmn-js.css';
+
+import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+import '@bpmn-io/properties-panel/assets/properties-panel.css';
+
+import './style.less';
+
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 
-import propertiesPanelModule from 'bpmn-js-properties-panel';
-import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda';
+import {
+    BpmnPropertiesPanelModule,
+    BpmnPropertiesProviderModule,
+    CamundaPlatformPropertiesProviderModule
+
+}  from 'bpmn-js-properties-panel';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json';
 import KeyboardBindings from 'diagram-js/lib/features/keyboard/KeyboardBindings';
 
@@ -29,53 +41,24 @@ import {
 
 var LOW_PRIORITY = 500;
 
-export var KEYCODE_C = 67;
-export var KEYCODE_V = 86;
-export var KEYCODE_Y = 89;
-export var KEYCODE_Z = 90;
-export var KEYCODE_DEL = 46;
-export var KEYCODE_PLUS = 187;
-export var KEYCODE_MINUS = 189;
-export var KEYCODE_0 = 48;
-
-export var KEYS_COPY = ['c', 'C', KEYCODE_C];
-export var KEYS_PASTE = ['v', 'V', KEYCODE_V];
-export var KEYS_REDO = ['y', 'Y', KEYCODE_Y];
-export var KEYS_UNDO = ['z', 'Z', KEYCODE_Z];
-export var KEYS_ZOOM_IN = ['+', 'Add', '=', KEYCODE_PLUS];
-export var KEYS_ZOOM_OUT = ['-', 'Subtract', KEYCODE_MINUS];
-export var KEYS_ZOOM_0 = ['0', KEYCODE_0];
-export var KEYS_DELETE = ['Backspace', 'Delete', 'Del', KEYCODE_DEL];
+// Adapted from https://github.com/openjdk/jfx/blob/master/modules/javafx.graphics/src/main/java/javafx/scene/input/KeyCode.java
+// JavaFX does not provide the standard properties, but KeyCode values and keyIdentifier seem to match
+export var KEYCODE_C = "U+0043";
+export var KEYCODE_V = "U+0056";
+export var KEYCODE_Y = "U+0059";
+export var KEYCODE_Z = "U+005A";
+export var KEYCODE_DEL = "U+007F";
+export var KEYCODE_PLUS = "U+00BB";
+export var KEYCODE_MINUS = "U+00BD";
+export var KEYCODE_0 = "U+0030";
 
 /**
- * Adds default keyboard bindings.
- *
- * This does not pull in any features will bind only actions that
- * have previously been registered against the editorActions component.
- *
- * @param {EventBus} eventBus
- * @param {Keyboard} keyboard
- */
-function CustomKeyboardBindings(eventBus, keyboard) {
-
-    var self = this;
-
-    eventBus.on('editorActions.init', LOW_PRIORITY, function (event) {
-
-        var editorActions = event.editorActions;
-
-        self.registerBindings(keyboard, editorActions);
-    });
-}
-
-
-/**
- * Register available keyboard bindings.
+ * Register available keyboard bindings to bridge JavaFX problems
  *
  * @param {Keyboard} keyboard
  * @param {EditorActions} editorActions
  */
-CustomKeyboardBindings.prototype.registerBindings = function (keyboard, editorActions) {
+function registerBindings(keyboard, editorActions) {
 
     /**
      * Add keyboard binding if respective editor action
@@ -93,12 +76,11 @@ CustomKeyboardBindings.prototype.registerBindings = function (keyboard, editorAc
 
 
     // undo
-    // (CTRL|CMD) + Z
+    // (CTRL|CMD) + U
     addListener('undo', function (context) {
-
         var event = context.keyEvent;
 
-        if (isCmd(event) && !isShift(event) && isKey(KEYS_UNDO, event)) {
+        if (isCmd(event) && !isShift(event) && event.keyIdentifier === KEYCODE_Z) {
             editorActions.trigger('undo');
 
             return true;
@@ -112,7 +94,7 @@ CustomKeyboardBindings.prototype.registerBindings = function (keyboard, editorAc
 
         var event = context.keyEvent;
 
-        if (isCmd(event) && (isKey(KEYS_REDO, event) || (isKey(KEYS_UNDO, event) && isShift(event)))) {
+        if (isCmd(event) && (event.keyIdentifier === KEYCODE_Y || (event.keyIdentifier === KEYCODE_Z && isShift(event)))) {
             editorActions.trigger('redo');
 
             return true;
@@ -122,10 +104,9 @@ CustomKeyboardBindings.prototype.registerBindings = function (keyboard, editorAc
     // copy
     // CTRL/CMD + C
     addListener('copy', function (context) {
-
         var event = context.keyEvent;
 
-        if (isCmd(event) && isKey(KEYS_COPY, event)) {
+        if (isCmd(event) && event.keyIdentifier === KEYCODE_C) {
             editorActions.trigger('copy');
 
             return true;
@@ -138,7 +119,7 @@ CustomKeyboardBindings.prototype.registerBindings = function (keyboard, editorAc
 
         var event = context.keyEvent;
 
-        if (isCmd(event) && isKey(KEYS_PASTE, event)) {
+        if (isCmd(event) && event.keyIdentifier === KEYCODE_V) {
             editorActions.trigger('paste');
 
             return true;
@@ -153,7 +134,7 @@ CustomKeyboardBindings.prototype.registerBindings = function (keyboard, editorAc
 
         // quirk: it has to be triggered by `=` as well to work on international keyboard layout
         // cf: https://github.com/bpmn-io/bpmn-js/issues/1362#issuecomment-722989754
-        if (isKey(KEYS_ZOOM_IN, event) && isCmd(event)) {
+        if (event.keyIdentifier === KEYCODE_PLUS && isCmd(event)) {
             editorActions.trigger('stepZoom', {value: 1});
 
             return true;
@@ -166,7 +147,7 @@ CustomKeyboardBindings.prototype.registerBindings = function (keyboard, editorAc
 
         var event = context.keyEvent;
 
-        if (isKey(KEYS_ZOOM_OUT, event) && isCmd(event)) {
+        if (event.keyIdentifier === KEYCODE_MINUS && isCmd(event)) {
             editorActions.trigger('stepZoom', {value: -1});
 
             return true;
@@ -179,7 +160,7 @@ CustomKeyboardBindings.prototype.registerBindings = function (keyboard, editorAc
 
         var event = context.keyEvent;
 
-        if (isKey(KEYS_ZOOM_0, event) && isCmd(event)) {
+        if (event.keyIdentifier === KEYCODE_0 && isCmd(event)) {
             editorActions.trigger('zoom', {value: 1});
 
             return true;
@@ -192,12 +173,13 @@ CustomKeyboardBindings.prototype.registerBindings = function (keyboard, editorAc
 
         var event = context.keyEvent;
 
-        if (isKey(KEYS_DELETE, event)) {
+        if (event.keyIdentifier === KEYCODE_DEL) {
             editorActions.trigger('removeSelection');
 
             return true;
         }
     });
+
 };
 
 /* global javaIntegration */
@@ -205,25 +187,22 @@ window.integration = new function () {
     var bpmnModeler;
 
     this.init = function () {
-        // modeler instance
         bpmnModeler = new BpmnModeler({
             container: '#canvas',
-            additionalModules: {
-                __init__: ["customKeyboardBinding"],
-                customKeyboardBinding: ["type", CustomKeyboardBindings],
-                propertiesPanelModule,
-                propertiesProviderModule
-            },
-            keyboard: {
-                bindTo: document
-            },
             propertiesPanel: {
                 parent: '#properties'
             },
+            additionalModules: [
+                BpmnPropertiesPanelModule,
+                BpmnPropertiesProviderModule,
+                CamundaPlatformPropertiesProviderModule
+            ],
             moddleExtensions: {
                 camunda: camundaModdleDescriptor
             }
         });
+
+        registerBindings(bpmnModeler.get("keyboard"), bpmnModeler.get("editorActions"));
 
         bpmnModeler.on('commandStack.changed', function () {
             exportDiagram();
@@ -254,14 +233,13 @@ window.integration = new function () {
             if(! bpmnXML) {
                 await bpmnModeler.createDiagram();
             } else {
-                await bpmnModeler.importXML(bpmnXML);
+                const result = await bpmnModeler.importXML(bpmnXML);
             }
             if (!dontZoom) {
                 var canvas = bpmnModeler.get('canvas');
                 canvas.zoom('fit-viewport');
             }
         } catch (err) {
-
             console.error('could not import BPMN 2.0 diagram', err);
         }
     }

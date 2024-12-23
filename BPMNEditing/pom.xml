@@ -145,7 +145,7 @@ the camunda engine.
                         <phase>generate-resources</phase>
 
                         <configuration>
-                            <arguments>run all</arguments>
+                            <arguments>run build</arguments>
                         </configuration>
                     </execution>
                 </executions>

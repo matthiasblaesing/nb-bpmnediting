@@ -14,8 +14,6 @@
  limitations under the License.
 */
 
-@import "bpmn-js-properties-panel/styles/properties";
-
 * {
   box-sizing: border-box;
 }
@@ -36,7 +34,7 @@ html,
   top: 0;
   bottom: 0;
   right: 0;
-  width: 300px;
+  width: 350px;
   z-index: 10;
   border-left: 1px solid #ccc;
   overflow: auto;
@@ -57,4 +55,8 @@ html,
 
 .bpp-properties-group .group-header .group-label {
     font-size: 14px;
+}
+
+.bio-properties-panel-scroll-container > *:last-child {
+  margin-bottom: 75px;
 }

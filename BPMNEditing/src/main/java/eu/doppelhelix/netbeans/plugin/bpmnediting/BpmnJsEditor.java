@@ -36,7 +36,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
-import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.undo.UndoableEdit;
@@ -105,7 +104,7 @@ public final class BpmnJsEditor extends JPanel implements MultiViewElement {
                 if (nv == State.SUCCEEDED) {
                     JSObject window = (JSObject) webview.getEngine().executeScript("window");
                     window.setMember("javaIntegration", javaIntegration);
-                    webview.getEngine().executeScript("console = {}; console.log = function() {javaIntegration.log(JSON.stringify(arguments))};");
+                    webview.getEngine().executeScript("console = {}; console.log = function() {javaIntegration.log(JSON.stringify(arguments))}; console.error = function() {javaIntegration.log(JSON.stringify(arguments))};");
                     updateDiagramFromDocumentDelayed();
                 }
             });
