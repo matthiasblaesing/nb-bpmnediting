@@ -17,6 +17,9 @@
 package eu.doppelhelix.netbeans.plugin.bpmnediting;
 
 import java.awt.BorderLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
@@ -92,6 +95,25 @@ public final class BpmnJsEditor extends JPanel implements MultiViewElement {
         this.lookup = lookup;
         this.setLayout(new BorderLayout());
         this.jfxPanel = new JFXPanel();
+        // Ensure key input is marked as consumed -- they are handled by the
+        // webview or bpmn-js
+        this.jfxPanel.addKeyListener(new KeyListener() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                e.consume();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                e.consume();
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                e.consume();
+            }
+
+        });
         this.add(jfxPanel);
         Platform.runLater(() -> {
             BorderPane root = new BorderPane();
