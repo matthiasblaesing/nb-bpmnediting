@@ -6,38 +6,39 @@ const xmlbuilder2 = require('xmlbuilder2');
 
 const outputFile = 'dist/licenses.xml';
 
-function createLicenseBundle() {
-    let done;
-    if(this.async) {
-        done = this.async();
-    } else {
-        done = () => {};
+class BundleLicenses {
+    apply(compiler) {
+        compiler.hooks.done.tap('BundleLicenses', (compilation) => {
+            console.log("Hooking");
+            this.execute();
+        });
     }
-    checker.init({
-        start: './',
-        production: true,
-        customFormat: {
-            version: '',
-            description: '',
-            repository: '',
-            publisher: '',
-            licenses: '',
-            licenseFile: '',
-            licenseText: '',
-            licenseModified: '',
-            noticeFile: '',
-            author: '',
-            homepage: ''
-        }
-    }, function (err, packages) {
-        if (err) {
-            done(err);
-        } else {
+
+    execute() {
+        checker.init({
+            start: './',
+            production: true,
+            customFormat: {
+                version: '',
+                description: '',
+                repository: '',
+                publisher: '',
+                licenses: '',
+                licenseFile: '',
+                licenseText: '',
+                licenseModified: '',
+                noticeFile: '',
+                author: '',
+                homepage: ''
+            }
+        }, function (err, packages) {
             console.log("Exporting license data to: " + outputFile);
-            const document = xmlbuilder2.create({version: '1.0'});
+            const document = xmlbuilder2.create({
+                version: '1.0'
+            });
             const root = document.ele('packages');
             for (const key in packages) {
-                const package = packages[key];
+                const package_ = packages[key];
                 const versionSplit = key.lastIndexOf("@");
                 const groupSplit = key.indexOf("/");
                 let group;
@@ -50,50 +51,49 @@ function createLicenseBundle() {
                 const version = key.substring(versionSplit + 1);
                 const packageRoot = root.ele("package");
                 packageRoot.ele("scope", "compile");
-                packageRoot.ele("group").txt(escapeAmpersand(group));
-                packageRoot.ele("artifact").txt(escapeAmpersand(artifact));
-                packageRoot.ele("version").txt(escapeAmpersand(version));
-                if (package["description"]) {
-                    packageRoot.ele("description").txt(escapeAmpersand(package["description"]));
+                packageRoot.ele("group").txt(BundleLicenses.escapeAmpersand(group));
+                packageRoot.ele("artifact").txt(BundleLicenses.escapeAmpersand(artifact));
+                packageRoot.ele("version").txt(BundleLicenses.escapeAmpersand(version));
+                if (package_["description"]) {
+                    packageRoot.ele("description").txt(BundleLicenses.escapeAmpersand(package_["description"]));
                 }
-                packageRoot.ele("fileLocation").txt(escapeAmpersand(package["path"]));
-                if (package["repository"]) {
-                    packageRoot.ele("repository").txt(escapeAmpersand(package["repository"]));
+                packageRoot.ele("fileLocation").txt(BundleLicenses.escapeAmpersand(package_["path"]));
+                if (package_["repository"]) {
+                    packageRoot.ele("repository").txt(BundleLicenses.escapeAmpersand(package_["repository"]));
                 }
-                const licenses = (typeof package['licenses'] === "object" && "length" in package['licenses']) ? package['licenses'] : [package['licenses']];
+                const licenses = (typeof package_['licenses'] === "object" && "length" in package_['licenses']) ? package_['licenses'] : [package_['licenses']];
                 const licensesNode = packageRoot.ele("licenses");
                 for (const license of licenses) {
                     const licenseNode = licensesNode.ele("license");
-                    licenseNode.ele("name").txt(escapeAmpersand(license));
+                    licenseNode.ele("name").txt(BundleLicenses.escapeAmpersand(license));
                 }
-                if (package["licenseText"]) {
-                    packageRoot.ele("artifactLicense").txt(escapeAmpersand(package["licenseText"].replace(/\r\n/g, "\n")));
+                if (package_["licenseText"]) {
+                    packageRoot.ele("artifactLicense").txt(BundleLicenses.escapeAmpersand(package_["licenseText"].replace(/\r\n/g, "\n")));
                 }
-                if (package["noticeFile"]) {
-                    const content = fs.readFileSync(package["noticeFile"], {encoding: 'utf8'});
-                    packageRoot.ele("artifactNotice").txt(escapeAmpersand(content.replace(/\r\n/g, "\n")));
+                if (package_["noticeFile"]) {
+                    const content = fs.readFileSync(package_["noticeFile"], {
+                        encoding: 'utf8'
+                    });
+                    packageRoot.ele("artifactNotice").txt(BundleLicenses.escapeAmpersand(content.replace(/\r\n/g, "\n")));
                 }
-                if (package['homepage']) {
-                    packageRoot.ele("url").txt(escapeAmpersand(package['homepage']));
+                ;
+                if (package_['homepage']) {
+                    packageRoot.ele("url").txt(BundleLicenses.escapeAmpersand(package_['homepage']));
                 }
             }
-            const packagesData = root.end({prettyPrint: true});
-            fs.writeFileSync(outputFile, packagesData, {encoding: 'utf8'});
-            done(true);
-        }
-    });
+            const packagesData = root.end({
+                prettyPrint: true
+            });
+            fs.writeFileSync(outputFile, packagesData, {
+                encoding: 'utf8'
+            });
+        });
+    }
+
+    static escapeAmpersand(input) {
+        // Bug in xmlbuilder2 - ampersands are not escaped
+        return input.replace(/&/g, "&amp;");
+    }
 }
 
-
-function escapeAmpersand(input) {
-    // Bug in xmlbuilder2 - ampersands are not escaped
-    return input.replace(/&/g, "&amp;");
-}
-
-if (require.main === module) {
-    createLicenseBundle();
-} else {
-    module.exports = grunt  => {
-        grunt.registerTask( 'bundle-licenses', 'Create summary file for licenses',  createLicenseBundle);
-    };
-}
+module.exports = BundleLicenses;

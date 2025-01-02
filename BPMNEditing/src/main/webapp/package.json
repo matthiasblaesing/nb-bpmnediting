@@ -18,7 +18,10 @@
         "style-loader": "^4.0.0",
         "webpack": "^5.94.0",
         "webpack-cli": "^6.0.0",
-        "webpack-dev-server": "^5.0.4"
+        "webpack-dev-server": "^5.0.4",
+        "license-checker": "^25.0.1",
+        "printf": "^0.6.1",
+        "xmlbuilder2": "^3.1.1"
     },
     "dependencies": {
         "@bpmn-io/properties-panel": "^3.23.0",

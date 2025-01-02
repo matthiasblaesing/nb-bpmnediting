@@ -1,4 +1,5 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const BundleLicenses = require('./bundle-licenses');
 
 const path = require('path');
 
@@ -37,6 +38,7 @@ module.exports = {
                     to: '.'
                 }
             ]
-        })
+        }),
+        new BundleLicenses()
     ]
 };
